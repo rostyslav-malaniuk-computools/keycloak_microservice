@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: .
+    container_name: api
+    env_file: .env
+    ports:
+      - "${DOCKER_APP_PORT_EXPOSE:-8000}:8000"
+    volumes:
+      - .:/app/
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-server
+    env_file: 
+      - .env
+    command:
+      - start-dev
+    ports:
+      - "8080:8080"
